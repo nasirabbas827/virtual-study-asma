@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2024 at 09:13 AM
+-- Generation Time: Apr 08, 2025 at 09:17 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -61,7 +61,8 @@ CREATE TABLE `discussionboard` (
 INSERT INTO `discussionboard` (`PostID`, `GroupID`, `PostedBy`, `Content`, `PostedAt`) VALUES
 (1, 2, 3, 'das', '2024-12-06 06:27:37'),
 (2, 2, 3, 'dfaewa', '2024-12-06 06:27:41'),
-(3, 3, 3, 'Hello', '2024-12-06 07:23:47');
+(3, 3, 3, 'Hello', '2024-12-06 07:23:47'),
+(4, 4, 3, 'ds', '2025-04-08 07:17:11');
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,9 @@ INSERT INTO `groupmembers` (`MemberID`, `GroupID`, `UserID`, `Role`, `JoinedAt`)
 (2, 2, 3, 'Leader', '2024-12-06 05:33:32'),
 (3, 3, 3, 'Leader', '2024-12-06 07:19:03'),
 (4, 3, 4, 'Leader', '2024-12-06 07:24:03'),
-(5, 2, 4, 'Member', '2024-12-06 07:24:17');
+(5, 2, 4, 'Member', '2024-12-06 07:24:17'),
+(6, 4, 8, 'Leader', '2025-04-08 07:15:36'),
+(7, 4, 3, 'Member', '2025-04-08 07:17:03');
 
 -- --------------------------------------------------------
 
@@ -131,7 +134,8 @@ CREATE TABLE `studygroups` (
 
 INSERT INTO `studygroups` (`GroupID`, `GroupName`, `Description`, `CreatedBy`, `CreatedAt`) VALUES
 (2, 'Group 1', 'Groupdas', 3, '2024-12-06 05:33:32'),
-(3, 'Group 2', 'dfeda', 3, '2024-12-06 07:19:03');
+(3, 'Group 2', 'dfeda', 3, '2024-12-06 07:19:03'),
+(4, 'New Test Group Final', 'fds', 8, '2025-04-08 07:15:36');
 
 -- --------------------------------------------------------
 
@@ -156,7 +160,8 @@ CREATE TABLE `studysessions` (
 INSERT INTO `studysessions` (`SessionID`, `GroupID`, `SessionTitle`, `Description`, `SessionDate`, `StartTime`, `EndTime`) VALUES
 (2, 2, 'Updated Session', 'dsafd', '2024-12-10', '2024-12-10 17:22:00', '2024-12-10 02:22:00'),
 (3, 2, 'New Session', 'dfa', '2024-12-13', '2024-12-13 11:52:00', '2024-12-13 23:52:00'),
-(4, 3, 'New Session', 'dsa', '2025-01-25', '2025-01-25 14:21:00', '2025-01-25 12:25:00');
+(4, 3, 'New Session', 'dsa', '2025-01-25', '2025-01-25 14:21:00', '2025-01-25 12:25:00'),
+(5, 4, 'New Test Session', 'ds', '2025-04-10', '2025-04-10 12:16:00', '2025-04-10 14:16:00');
 
 -- --------------------------------------------------------
 
@@ -173,17 +178,20 @@ CREATE TABLE `users` (
   `age` int(11) DEFAULT NULL,
   `full_name` varchar(255) NOT NULL,
   `bio` text DEFAULT NULL,
-  `created_at` datetime DEFAULT current_timestamp()
+  `created_at` datetime DEFAULT current_timestamp(),
+  `status` enum('pending','approved','rejected') NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `phone`, `age`, `full_name`, `bio`, `created_at`) VALUES
-(3, 'nasir', '$2y$10$a/SgsGBswoo1YfNrJd./p.Jqey.MDYC.QoLsyJGas3H5cdesUPvjq', 'nasiryt.827@gmail.com', '9853', 23, 'NASIR ABBAS', 'sd', '2024-12-06 12:40:14'),
-(4, 'newuser', '$2y$10$Yc4o/da20hrrNpA0dB.qTuFM/KXjAHaPd0y08dw8cJbXMVdn6nvQ6', 'user@gmail.com', '43443', 23, '', NULL, '2024-12-06 12:40:14'),
-(5, 'nasiryd', '$2y$10$lkSUouqVUg/bwyuDLC2AueX.dKkPqxFtzQupcb0zv7AhyRFmqu6bW', 'nasiryt.87@gmail.com', '4512', 23, '', NULL, '2024-12-06 12:42:06');
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `phone`, `age`, `full_name`, `bio`, `created_at`, `status`) VALUES
+(3, 'nasir', '$2y$10$a/SgsGBswoo1YfNrJd./p.Jqey.MDYC.QoLsyJGas3H5cdesUPvjq', 'nasiryt.827@gmail.com', '9853', 23, 'NASIR ABBAS', 'sd', '2024-12-06 12:40:14', 'approved'),
+(4, 'newuser', '$2y$10$Yc4o/da20hrrNpA0dB.qTuFM/KXjAHaPd0y08dw8cJbXMVdn6nvQ6', 'user@gmail.com', '43443', 23, '', NULL, '2024-12-06 12:40:14', 'pending'),
+(6, 'nasir1111', '$2y$10$QmlCX8JyarON5l6NBL8R2eGnMbDW.gnXMc3cII0ss.D9j5ZakwC3e', 'ytloan@gmail.com', '03266029050', 23, 'Imran Khan', 'ds', '2025-03-02 11:00:31', 'pending'),
+(7, 'vubwn01', '$2y$10$rNzxJgHPDKYbAydyDuswK.3K0e3UogkSs4Vjd8ET4.hjjGZk4bZsu', 'vu@gmail.com', '03266029059', 23, '', NULL, '2025-03-02 20:39:23', 'pending'),
+(8, 'testuser', '$2y$10$WzgYfqX339jfViU4WNzyS.s35O973JFoEHMF50tIo189g8mOECCLC', 'testuser1@gmail.com', '032660666744', 23, '', NULL, '2025-04-08 12:10:11', 'approved');
 
 --
 -- Indexes for dumped tables
@@ -253,13 +261,13 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `discussionboard`
 --
 ALTER TABLE `discussionboard`
-  MODIFY `PostID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `PostID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `groupmembers`
 --
 ALTER TABLE `groupmembers`
-  MODIFY `MemberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `MemberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `resources`
@@ -271,19 +279,19 @@ ALTER TABLE `resources`
 -- AUTO_INCREMENT for table `studygroups`
 --
 ALTER TABLE `studygroups`
-  MODIFY `GroupID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `GroupID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `studysessions`
 --
 ALTER TABLE `studysessions`
-  MODIFY `SessionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `SessionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

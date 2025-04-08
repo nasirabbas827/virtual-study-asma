@@ -82,21 +82,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // if no errors, insert user into database
     if (empty($username_err) && empty($password_err) && empty($email_err) && empty($phone_err) && empty($age_err)) {
-        $sql = "INSERT INTO users (username, password, email, phone, age) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (username, password, email, phone, age, status) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "ssssi", $param_username, $param_password, $param_email, $param_phone, $param_age);
+        mysqli_stmt_bind_param($stmt, "ssssis", $param_username, $param_password, $param_email, $param_phone, $param_age, $param_status);
         $param_username = $username;
         $param_password = password_hash($password, PASSWORD_DEFAULT);
         $param_email = $email;
         $param_phone = $phone;
         $param_age = $age;
+        $param_status = "pending";
         mysqli_stmt_execute($stmt);
+        
         mysqli_stmt_close($stmt);
         mysqli_close($conn);
         
         
         // Set success message
-        $success_msg = "User registered successfully.";
+        $success_msg = "User registered successfully.Your Status is Pending Wait For Admin Approval";
     }
 }
 ?>
